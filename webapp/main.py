@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+import hashlib
 
 current_dir = dirname(abspath(__file__))
 static_path = join(current_dir, "static")
@@ -35,3 +36,27 @@ def generate(body: Body):
     """
     string = base64.b64encode(os.urandom(64))[:body.length].decode('utf-8')
     return {'token': string}
+
+
+class TextBody(BaseModel):
+    text: str
+
+
+@app.post('/process')
+def process_text(body: TextBody):
+    """
+    Process the input text and return the result.
+    """
+    # Process the text here
+    result = body.text
+    repr('```python')
+    return {'result': result}
+
+
+@app.post('/checksum')
+def calculate_checksum(body: TextBody):
+    """
+    Calculate the checksum of the input text and return the result.
+    """
+    checksum = hashlib.md5(body.text.encode()).hexdigest()
+    return {'checksum': checksum}

@@ -39,6 +39,59 @@ Finally, verify the new endpoint is working by trying it out by going to the `/d
 
 🚀 Congratulations, through the exercise, you haven't only used copilot to generate code but also done it in an interactive and fun way! You can use GitHub Copilot to not only generate code, but write documentation, test your applications and more.
 
+## API Routes
+
+### POST /checksum
+
+Calculate the checksum of the input text and return the result.
+
+#### Request
+
+- **URL**: `/checksum`
+- **Method**: `POST`
+- **Headers**: `Content-Type: application/json`
+- **Body**:
+  ```json
+  {
+    "text": "string"
+  }
+
+#### Response
+- **Status**: `200 OK`
+- **Body**:
+  ```json
+  {
+    "checksum": "string"
+  }
+
+#### Example
+
+#### Request
+```sh
+   curl -X POST "http://localhost:8000/checksum" -H "Content-Type: application/json" -d '{"text": "example text"}'
+
+#### Response
+```json
+{
+  "checksum": "5a105e8b9d40e1329780d62ea2265d8a"
+}
+
+
+## Running the Application
+
+### Installing Dependencies
+
+First, ensure you have Python installed. Then, install the required dependencies using `pip`:
+
+```sh
+pip install -r requirements.txt
+
+### Running the Application
+
+To run the application using the uvicorn webserver, execute the following command:
+
+```sh
+uvicorn --host 0.0.0.0 webapp.main:app --reload
 
 ## Legal Notices
 
